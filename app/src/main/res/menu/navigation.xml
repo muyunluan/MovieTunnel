@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/navigation_now_showing"
+        android:icon="@mipmap/ic_movie"
+        android:title="@string/title_now_showing" />
+
+    <item
+        android:id="@+id/navigation_top_rated"
+        android:icon="@mipmap/ic_thumb_up"
+        android:title="@string/title_top_rated" />
+
+    <item
+        android:id="@+id/navigation_popular"
+        android:icon="@mipmap/ic_home"
+        android:title="@string/title_popular" />
+
+    <item
+        android:id="@+id/navigation_favorite"
+        android:icon="@mipmap/ic_star"
+        android:title="@string/title_favorite" />
+
+    <item
+        android:id="@+id/navigation_account"
+        android:icon="@mipmap/ic_account"
+        android:title="@string/title_account" />
+
+</menu>
