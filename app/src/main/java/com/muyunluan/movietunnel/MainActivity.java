@@ -5,14 +5,15 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.muyunluan.movietunnel.model.Movie;
-import com.muyunluan.movietunnel.ui.movielist.MovieListFragment;
+import com.muyunluan.movietunnel.model.movie.Movie;
+import com.muyunluan.movietunnel.ui.movielist.list.MovieListFragment;
+import com.muyunluan.movietunnel.utls.data.MovieListType;
 
 public class MainActivity extends AppCompatActivity implements MovieListFragment.OnListFragmentInteractionListener {
 
@@ -29,11 +30,13 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
 
         if (!isOnline()) {
             Log.e(TAG, "onCreate: Error - No Internet Access");
-            Toast.makeText(this, R.string.error_internet, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, R.string.error_internet, Toast.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.fragment_container), R.string.error_internet, Snackbar.LENGTH_LONG).show();
         } else {
             // Only create new fragments when there is no previously saved state
             if (null == savedInstanceState) {
-                MovieListFragment movieListFragment = MovieListFragment.newInstance();
+                // Use Now Playing as default
+                MovieListFragment movieListFragment = MovieListFragment.newInstance(MovieListType.NOW_PLAYING);
                 navigateFragment(movieListFragment);
             }
         }
@@ -47,19 +50,18 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_now_showing:
-                    fragment = MovieListFragment.newInstance();
+                    fragment = MovieListFragment.newInstance(MovieListType.NOW_PLAYING);
                     break;
                 case R.id.navigation_top_rated:
-                    fragment = MovieListFragment.newInstance();
+                    fragment = MovieListFragment.newInstance(MovieListType.TOP_RATED);
                     break;
                 case R.id.navigation_popular:
-                    fragment = MovieListFragment.newInstance();
+                    fragment = MovieListFragment.newInstance(MovieListType.POPULAR);
                     break;
                 case R.id.navigation_favorite:
-                    fragment = MovieListFragment.newInstance();
+                    fragment = MovieListFragment.newInstance(MovieListType.FAVORITE);
                     break;
                 case R.id.navigation_account:
-                    fragment = MovieListFragment.newInstance();
                     break;
             }
 
@@ -71,21 +73,25 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
     };
 
     private void navigateFragment(Fragment fragment) {
-        if (null == fragment) {
-            //TODO: Snackbar display error msg
-            return;
-        }
 
         isTablet = getResources().getBoolean(R.bool.twoPaneMode);
         if (!isTablet) {
-//            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//            setSupportActionBar(toolbar);
+            if (null == fragment) {
+                Snackbar.make(findViewById(R.id.fragment_container), R.string.empty_fragment, Snackbar.LENGTH_LONG).show();
+                return;
+            }
+
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, fragment)
                     .addToBackStack(null)
                     .commit();
         } else {
+            if (null == fragment) {
+                Snackbar.make(findViewById(R.id.fragment_container_grid), R.string.empty_fragment, Snackbar.LENGTH_LONG).show();
+                return;
+            }
+
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container_grid, fragment)

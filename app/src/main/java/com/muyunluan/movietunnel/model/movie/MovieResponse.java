@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.model;
+package com.muyunluan.movietunnel.model.movie;
 
 import com.google.gson.annotations.SerializedName;
 

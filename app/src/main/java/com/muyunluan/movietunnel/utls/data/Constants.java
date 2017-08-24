@@ -9,19 +9,19 @@ public class Constants {
 
     public static final String MOVIE_DATABASE_KEY = "aca963610842dd276b51c32697e0f50d";
     public static final String BASE_URL = "https://api.themoviedb.org/3/";
-    public final static String DISCOVER_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
-    public final static String PARAM_API_KEY = "api_key";
-    public final static String PARAM_SORT = "sort_by";
-    public final static String SORT_BY_POPULAR = "popularity.desc";
-    public final static String SORT_BY_RATING = "vote_average.desc";
-    public final static String PARAM_LANGUAGE = "language";
+    public static final String DISCOVER_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
+    public static final String PARAM_API_KEY = "api_key";
+    public static final String PARAM_SORT = "sort_by";
+    public static final String SORT_BY_POPULAR = "popularity.desc";
+    public static final String SORT_BY_RATING = "vote_average.desc";
+    public static final String PARAM_LANGUAGE = "language";
 
     public static final String MOVIE_BASE_URL = "https://api.themoviedb.org/3/movie";
     public static final String PATH_TRAILERS = "videos";
     public static final String PATH_REVIEWS = "reviews";
 
-    public final static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
-    public final static String IMAGE_SIZE = "w185/";
+    public static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
+    public static final String IMAGE_SIZE = "w185/";
 
 
 }

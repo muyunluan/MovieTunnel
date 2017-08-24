@@ -3,8 +3,8 @@ package com.muyunluan.movietunnel.utls;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.muyunluan.movietunnel.model.Movie;
-import com.muyunluan.movietunnel.model.MovieResponse;
+import com.muyunluan.movietunnel.model.movie.Movie;
+import com.muyunluan.movietunnel.model.movie.MovieResponse;
 import com.muyunluan.movietunnel.utls.retrofit.RetrofitApiClient;
 import com.muyunluan.movietunnel.utls.retrofit.RetrofitApiInterface;
 

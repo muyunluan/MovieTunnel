@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.movielist;
+package com.muyunluan.movietunnel.ui.movielist.list;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,9 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.muyunluan.movietunnel.R;
-import com.muyunluan.movietunnel.model.Movie;
-import com.muyunluan.movietunnel.model.MovieResponse;
+import com.muyunluan.movietunnel.model.movie.Movie;
+import com.muyunluan.movietunnel.model.movie.MovieResponse;
 import com.muyunluan.movietunnel.utls.data.Constants;
+import com.muyunluan.movietunnel.utls.data.MovieListType;
 import com.muyunluan.movietunnel.utls.retrofit.RetrofitApiClient;
 import com.muyunluan.movietunnel.utls.retrofit.RetrofitApiInterface;
 
@@ -44,6 +45,8 @@ public class MovieListFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
 
+    private static MovieListType mListType;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -51,9 +54,9 @@ public class MovieListFragment extends Fragment {
     public MovieListFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static MovieListFragment newInstance() {
+    public static MovieListFragment newInstance(MovieListType listType) {
+        mListType = listType;
+
         MovieListFragment fragment = new MovieListFragment();
         return fragment;
     }
@@ -96,14 +99,37 @@ public class MovieListFragment extends Fragment {
         RetrofitApiInterface apiInterface =
                 RetrofitApiClient.getBaseClient().create(RetrofitApiInterface.class);
 
-        Call<MovieResponse> movieCall = apiInterface.getTopRatedMovies(apiKey);
+        Call<MovieResponse> movieCall = null;
+
+        if (mListType == null) {
+            mListType = MovieListType.NOW_PLAYING;
+        }
+
+        switch (mListType) {
+            case NOW_PLAYING:
+                movieCall = apiInterface.getNowPlayingMovies(apiKey);
+                break;
+            case TOP_RATED:
+                movieCall = apiInterface.getTopRatedMovies(apiKey);
+                break;
+            case POPULAR:
+                movieCall = apiInterface.getPopularMovies(apiKey);
+                break;
+            case FAVORITE:
+                movieCall = apiInterface.getTopRatedMovies(apiKey);
+                break;
+            default:
+                movieCall = apiInterface.getNowPlayingMovies(apiKey);
+                break;
+        }
+
         movieCall.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                Log.i(TAG, "onResponse: " + response.body().toString());
+                //Log.i(TAG, "onResponse: " + response.body().toString());
                 mMovieList = response.body().getmResults();
                 Log.i(TAG, "onResponse: get movie list - " + mMovieList.size());
-                Log.i(TAG, "onResponse: test first Movie object - " + mMovieList.get(0).toString());
+                //Log.i(TAG, "onResponse: test first Movie object - " + mMovieList.get(0).toString());
                 mRecyclerView.setAdapter(new MovieListRecyclerViewAdapter(mMovieList, mListener));
             }
 

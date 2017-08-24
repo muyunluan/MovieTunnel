@@ -10,4 +10,5 @@
     <string name="title_account">Profile</string>
     <string name="title_now_showing">Now Showing</string>
     <string name="title_favorite">Favorite</string>
+    <string name="empty_fragment">Empty Fragment object</string>
 </resources>

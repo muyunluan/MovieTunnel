@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.movielist;
+package com.muyunluan.movietunnel.ui.movielist.list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,25 +7,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.muyunluan.movietunnel.R;
-import com.muyunluan.movietunnel.model.Movie;
-import com.muyunluan.movietunnel.ui.movielist.MovieListFragment.OnListFragmentInteractionListener;
-import com.muyunluan.movietunnel.ui.movielist.dummy.DummyContent.DummyItem;
+import com.muyunluan.movietunnel.model.movie.Movie;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
+
 public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieListRecyclerViewAdapter.ViewHolder> {
 
     private static final String TAG = MovieListRecyclerViewAdapter.class.getSimpleName();
 
     private final List<Movie> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final MovieListFragment.OnListFragmentInteractionListener mListener;
 
-    public MovieListRecyclerViewAdapter(List<Movie> items, OnListFragmentInteractionListener listener) {
+    public MovieListRecyclerViewAdapter(List<Movie> items, MovieListFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -41,7 +35,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(String.valueOf(mValues.get(position).getmId()));
-        holder.mContentView.setText(mValues.get(position).getmSynopsis());
+        holder.mContentView.setText(mValues.get(position).getmOverview());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

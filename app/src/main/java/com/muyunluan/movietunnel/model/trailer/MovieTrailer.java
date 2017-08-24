@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.model;
+package com.muyunluan.movietunnel.model.trailer;
 
 /**
  * Created by Fei Deng on 8/15/17.

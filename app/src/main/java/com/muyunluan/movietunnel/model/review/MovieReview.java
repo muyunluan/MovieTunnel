@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.model;
+package com.muyunluan.movietunnel.model.review;
 
 /**
  * Created by Fei Deng on 8/15/17.
