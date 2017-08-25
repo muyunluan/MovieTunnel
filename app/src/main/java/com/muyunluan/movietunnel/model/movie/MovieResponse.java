@@ -11,35 +11,35 @@ import java.util.ArrayList;
 
 public class MovieResponse {
     @SerializedName("page")
-    private int mPage;
+    private Integer mPage;
     @SerializedName("total_results")
-    private int mTotalResults;
+    private Integer mTotalResults;
     @SerializedName("total_pages")
-    private int mTotalPages;
+    private Integer mTotalPages;
     @SerializedName("results")
     private ArrayList<Movie> mResults;
 
-    public int getmPage() {
+    public Integer getmPage() {
         return mPage;
     }
 
-    public void setmPage(int mPage) {
+    public void setmPage(Integer mPage) {
         this.mPage = mPage;
     }
 
-    public int getmTotalResults() {
+    public Integer getmTotalResults() {
         return mTotalResults;
     }
 
-    public void setmTotalResults(int mTotalResults) {
+    public void setmTotalResults(Integer mTotalResults) {
         this.mTotalResults = mTotalResults;
     }
 
-    public int getmTotalPages() {
+    public Integer getmTotalPages() {
         return mTotalPages;
     }
 
-    public void setmTotalPages(int mTotalPages) {
+    public void setmTotalPages(Integer mTotalPages) {
         this.mTotalPages = mTotalPages;
     }
 

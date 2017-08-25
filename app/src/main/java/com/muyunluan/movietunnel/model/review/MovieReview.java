@@ -1,14 +1,20 @@
 package com.muyunluan.movietunnel.model.review;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Fei Deng on 8/15/17.
  * Copyright (c) 2017 Muyunluan. All rights reserved.
  */
 
 public class MovieReview {
+    @SerializedName("id")
     private String mId;
+    @SerializedName("author")
     private String mAuthor;
+    @SerializedName("content")
     private String mContent;
+    @SerializedName("url")
     private String mUrl;
 
     public MovieReview(String mId, String mAuthor, String mContent, String mUrl) {

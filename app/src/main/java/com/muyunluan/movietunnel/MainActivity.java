@@ -1,5 +1,6 @@
 package com.muyunluan.movietunnel;
 
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.muyunluan.movietunnel.model.movie.Movie;
+import com.muyunluan.movietunnel.ui.movielist.details.MovieDetailsActivity;
 import com.muyunluan.movietunnel.ui.movielist.list.MovieListFragment;
 import com.muyunluan.movietunnel.utls.data.MovieListType;
 
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
             // Only create new fragments when there is no previously saved state
             if (null == savedInstanceState) {
                 // Use Now Playing as default
-                MovieListFragment movieListFragment = MovieListFragment.newInstance(MovieListType.NOW_PLAYING);
+                MovieListFragment movieListFragment = MovieListFragment.newInstance(MovieListType.POPULAR);
                 navigateFragment(movieListFragment);
             }
         }
@@ -109,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
 
     @Override
     public void onListFragmentInteraction(Movie item) {
-
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        startActivity(intent);
     }
 }
