@@ -1,21 +1,31 @@
 package com.muyunluan.movietunnel.model.trailer;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Fei Deng on 8/15/17.
  * Copyright (c) 2017 Muyunluan. All rights reserved.
  */
 
 public class MovieTrailer {
+    @SerializedName("id")
     private String mId;
+    @SerializedName("iso_639_1")
     private String mIso639_1;
+    @SerializedName("iso_3166_1")
     private String mIso3166_1;
+    @SerializedName("key")
     private String mKey;
+    @SerializedName("name")
     private String mName;
+    @SerializedName("site")
     private String mSite;
-    private int    mSize;
+    @SerializedName("size")
+    private Integer mSize;
+    @SerializedName("type")
     private String mType;
 
-    public MovieTrailer(String mId, String mIso639_1, String mIso3166_1, String mKey, String mName, String mSite, int mSize, String mType) {
+    public MovieTrailer(String mId, String mIso639_1, String mIso3166_1, String mKey, String mName, String mSite, Integer mSize, String mType) {
         this.mId = mId;
         this.mIso639_1 = mIso639_1;
         this.mIso3166_1 = mIso3166_1;
@@ -88,11 +98,11 @@ public class MovieTrailer {
         this.mSite = mSite;
     }
 
-    public int getmSize() {
+    public Integer getmSize() {
         return mSize;
     }
 
-    public void setmSize(int mSize) {
+    public void setmSize(Integer mSize) {
         this.mSize = mSize;
     }
 

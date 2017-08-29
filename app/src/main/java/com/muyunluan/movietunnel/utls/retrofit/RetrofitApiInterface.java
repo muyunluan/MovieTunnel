@@ -2,8 +2,8 @@ package com.muyunluan.movietunnel.utls.retrofit;
 
 import com.muyunluan.movietunnel.model.movie.Movie;
 import com.muyunluan.movietunnel.model.movie.MovieResponse;
-import com.muyunluan.movietunnel.model.review.MovieReview;
 import com.muyunluan.movietunnel.model.review.MovieReviewResponse;
+import com.muyunluan.movietunnel.model.trailer.MovieTrailerResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -29,5 +29,5 @@ public interface RetrofitApiInterface {
     @GET("movie/{id}/reviews")
     Call<MovieReviewResponse> getMovieReviews(@Path("id") int id, @Query("api_key") String apiKey);
     @GET("movie/{id}/videos")
-    Call<MovieReview> getMovieTrailers(@Path("id") int id, @Query("api_key") String apiKey);
+    Call<MovieTrailerResponse> getMovieTrailers(@Path("id") int id, @Query("api_key") String apiKey);
 }

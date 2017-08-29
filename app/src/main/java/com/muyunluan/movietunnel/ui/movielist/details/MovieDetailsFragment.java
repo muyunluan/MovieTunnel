@@ -3,7 +3,6 @@ package com.muyunluan.movietunnel.ui.movielist.details;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,17 +11,11 @@ import android.view.ViewGroup;
 
 import com.muyunluan.movietunnel.R;
 import com.muyunluan.movietunnel.model.review.MovieReview;
-import com.muyunluan.movietunnel.model.review.MovieReviewResponse;
 import com.muyunluan.movietunnel.ui.movielist.review.MovieReviewAdapter;
-import com.muyunluan.movietunnel.utls.data.Constants;
-import com.muyunluan.movietunnel.utls.retrofit.RetrofitApiClient;
-import com.muyunluan.movietunnel.utls.retrofit.RetrofitApiInterface;
+import com.muyunluan.movietunnel.ui.movielist.review.MovieReviewFragment;
+import com.muyunluan.movietunnel.ui.movielist.trailer.MovieTrailerFragment;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Fei Deng on 8/23/17.
@@ -61,22 +54,29 @@ public class MovieDetailsFragment extends Fragment {
         if (null != getArguments() && getArguments().containsKey("movie_id")) {
             mMovieId = getArguments().getInt("movie_id");
         } else {
-            // TODO: is this legal?
+            // TODO: is this a legal movie ID?
             mMovieId = 0;
         }
+        Log.i(TAG, "onCreate: get movie ID - " + mMovieId);
 
-        getReviews(mMovieId);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_details, container, false);
-        Context context = view.getContext();
 
-        mTrailerRecyclerView = (RecyclerView) view.findViewById(R.id.rcy_trailer);
+        android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
 
-        mReviewRecyclerView = (RecyclerView) view.findViewById(R.id.rcy_review);
-        mReviewRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        MovieTrailerFragment movieTrailerFragment = MovieTrailerFragment.newInstance(mMovieId);
+        fragmentManager.beginTransaction()
+                .add(R.id.trailer_container, movieTrailerFragment)
+                .commit();
+
+        MovieReviewFragment movieReviewFragment = MovieReviewFragment.newInstance(mMovieId);
+        fragmentManager.beginTransaction()
+                .add(R.id.review_container, movieReviewFragment)
+                .commit();
 
         return view;
     }
@@ -89,28 +89,6 @@ public class MovieDetailsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-    }
-
-    private void getReviews(int movieId) {
-        RetrofitApiInterface apiInterface =
-                RetrofitApiClient.getBaseClient().create(RetrofitApiInterface.class);
-
-        Call<MovieReviewResponse> movieReviewCall =
-                apiInterface.getMovieReviews(movieId, Constants.MOVIE_DATABASE_KEY);
-
-        movieReviewCall.enqueue(new Callback<MovieReviewResponse>() {
-            @Override
-            public void onResponse(Call<MovieReviewResponse> call, Response<MovieReviewResponse> response) {
-                mMovieReviews = response.body().getmResults();
-                Log.i(TAG, "onResponse: get review list - " + mMovieReviews.size());
-                mReviewRecyclerView.setAdapter(new MovieReviewAdapter(mMovieReviews));
-            }
-
-            @Override
-            public void onFailure(Call<MovieReviewResponse> call, Throwable t) {
-
-            }
-        });
     }
 
 }

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.muyunluan.movietunnel.model.movie.Movie;
 import com.muyunluan.movietunnel.ui.movielist.details.MovieDetailsActivity;
 import com.muyunluan.movietunnel.ui.movielist.list.MovieListFragment;
+import com.muyunluan.movietunnel.utls.data.Constants;
 import com.muyunluan.movietunnel.utls.data.MovieListType;
 
 public class MainActivity extends AppCompatActivity implements MovieListFragment.OnListFragmentInteractionListener {
@@ -112,6 +113,8 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
     @Override
     public void onListFragmentInteraction(Movie item) {
         Intent intent = new Intent(this, MovieDetailsActivity.class);
+        Log.i(TAG, "onListFragmentInteraction: select movie ID - " + item.getmId());
+        intent.putExtra(Constants.ARG_MOVIE_ID, item.getmId());
         startActivity(intent);
     }
 }
