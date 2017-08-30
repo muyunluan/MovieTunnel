@@ -14,4 +14,5 @@
     <string name="favorite">Favorite</string>
     <string name="reviews_title">Movie Reviews</string>
     <string name="trailer_title">Trailers</string>
+    <string name="movie_details">Movie Details</string>
 </resources>

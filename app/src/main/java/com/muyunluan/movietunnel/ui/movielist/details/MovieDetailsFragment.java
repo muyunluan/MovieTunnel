@@ -3,19 +3,14 @@ package com.muyunluan.movietunnel.ui.movielist.details;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.muyunluan.movietunnel.R;
-import com.muyunluan.movietunnel.model.review.MovieReview;
-import com.muyunluan.movietunnel.ui.movielist.review.MovieReviewAdapter;
 import com.muyunluan.movietunnel.ui.movielist.review.MovieReviewFragment;
 import com.muyunluan.movietunnel.ui.movielist.trailer.MovieTrailerFragment;
-
-import java.util.ArrayList;
 
 /**
  * Created by Fei Deng on 8/23/17.
@@ -29,12 +24,6 @@ public class MovieDetailsFragment extends Fragment {
     private static MovieDetailsFragment mFragment;
 
     private static int mMovieId;
-
-    private RecyclerView mTrailerRecyclerView;
-
-    private RecyclerView mReviewRecyclerView;
-    private MovieReviewAdapter mReviewAdapter;
-    private ArrayList<MovieReview> mMovieReviews = new ArrayList<>();
 
     public MovieDetailsFragment() {
     }
@@ -68,11 +57,12 @@ public class MovieDetailsFragment extends Fragment {
 
         android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
 
+        // Configure MovieTrailerFragment
         MovieTrailerFragment movieTrailerFragment = MovieTrailerFragment.newInstance(mMovieId);
         fragmentManager.beginTransaction()
                 .add(R.id.trailer_container, movieTrailerFragment)
                 .commit();
-
+        // Configure MovieReviewFragment
         MovieReviewFragment movieReviewFragment = MovieReviewFragment.newInstance(mMovieId);
         fragmentManager.beginTransaction()
                 .add(R.id.review_container, movieReviewFragment)
