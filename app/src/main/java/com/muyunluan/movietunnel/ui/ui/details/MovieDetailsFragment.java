@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.movielist.details;
+package com.muyunluan.movietunnel.ui.ui.details;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.muyunluan.movietunnel.R;
-import com.muyunluan.movietunnel.ui.movielist.review.MovieReviewFragment;
-import com.muyunluan.movietunnel.ui.movielist.trailer.MovieTrailerFragment;
+import com.muyunluan.movietunnel.ui.ui.review.MovieReviewFragment;
+import com.muyunluan.movietunnel.ui.ui.trailer.MovieTrailerFragment;
 
 /**
  * Created by Fei Deng on 8/23/17.
@@ -57,6 +57,7 @@ public class MovieDetailsFragment extends Fragment {
 
         android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
 
+        //TODO: How to go back to previous activity not fragment?
         // Configure MovieTrailerFragment
         MovieTrailerFragment movieTrailerFragment = MovieTrailerFragment.newInstance(mMovieId);
         fragmentManager.beginTransaction()

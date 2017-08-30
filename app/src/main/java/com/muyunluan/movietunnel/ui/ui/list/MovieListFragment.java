@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.movielist.list;
+package com.muyunluan.movietunnel.ui.ui.list;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.movielist.trailer;
+package com.muyunluan.movietunnel.ui.ui.trailer;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -57,6 +57,7 @@ public class MovieTrailerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_movie_trailer, container, false);
+
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_trailers);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
 
@@ -84,7 +85,7 @@ public class MovieTrailerFragment extends Fragment {
 
             @Override
             public void onFailure(Call<MovieTrailerResponse> call, Throwable t) {
-
+                Log.e(TAG, "onFailure: " + t.getMessage() );
             }
         });
     }

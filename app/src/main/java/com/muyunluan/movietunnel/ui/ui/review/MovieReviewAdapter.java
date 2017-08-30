@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.movielist.review;
+package com.muyunluan.movietunnel.ui.ui.review;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

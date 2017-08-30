@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.movielist.trailer;
+package com.muyunluan.movietunnel.ui.ui.trailer;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

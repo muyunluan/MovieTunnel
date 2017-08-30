@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.movielist.details;
+package com.muyunluan.movietunnel.ui.ui.details;
 
 /**
  * Created by Fei Deng on 8/23/17.

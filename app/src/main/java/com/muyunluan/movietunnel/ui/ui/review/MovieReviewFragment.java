@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.movielist.review;
+package com.muyunluan.movietunnel.ui.ui.review;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -84,7 +84,7 @@ public class MovieReviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<MovieReviewResponse> call, Throwable t) {
-
+                Log.e(TAG, "onFailure: " + t.getMessage() );
             }
         });
     }

@@ -10,11 +10,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.muyunluan.movietunnel.model.movie.Movie;
-import com.muyunluan.movietunnel.ui.movielist.details.MovieDetailsActivity;
-import com.muyunluan.movietunnel.ui.movielist.list.MovieListFragment;
+import com.muyunluan.movietunnel.ui.ui.details.MovieDetailsActivity;
+import com.muyunluan.movietunnel.ui.ui.list.MovieListFragment;
+import com.muyunluan.movietunnel.ui.ui.settings.SettingsActivity;
 import com.muyunluan.movietunnel.utls.data.Constants;
 import com.muyunluan.movietunnel.utls.data.MovieListType;
 
@@ -113,8 +115,24 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
     @Override
     public void onListFragmentInteraction(Movie item) {
         Intent intent = new Intent(this, MovieDetailsActivity.class);
-        Log.i(TAG, "onListFragmentInteraction: select movie ID - " + item.getmId());
         intent.putExtra(Constants.ARG_MOVIE_ID, item.getmId());
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

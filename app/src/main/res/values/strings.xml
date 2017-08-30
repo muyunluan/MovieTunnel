@@ -15,4 +15,7 @@
     <string name="reviews_title">Movie Reviews</string>
     <string name="trailer_title">Trailers</string>
     <string name="movie_details">Movie Details</string>
+    <string name="sort_by_release_date">Sort By Release Date</string>
+    <string name="settings">Settings</string>
+    <string name="share">Share</string>
 </resources>
