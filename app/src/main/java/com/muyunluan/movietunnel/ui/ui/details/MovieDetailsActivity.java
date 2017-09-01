@@ -82,4 +82,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieTrai
         }
         return super.onOptionsItemSelected(item);
     }
+
+    //TODO: Go to MainActivity.java
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

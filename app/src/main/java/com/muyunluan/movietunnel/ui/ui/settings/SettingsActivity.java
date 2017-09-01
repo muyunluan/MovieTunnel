@@ -23,7 +23,11 @@ public class SettingsActivity extends AppCompatActivity {
         if (null != actionBar) {
             actionBar.setDisplayShowHomeEnabled(true);
         }
-    }
 
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, SettingsFragment.newInstance())
+                .commit();
+    }
 
 }

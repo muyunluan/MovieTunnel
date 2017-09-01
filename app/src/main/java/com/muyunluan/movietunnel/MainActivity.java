@@ -1,6 +1,7 @@
 package com.muyunluan.movietunnel;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,10 +22,14 @@ import com.muyunluan.movietunnel.ui.ui.settings.SettingsActivity;
 import com.muyunluan.movietunnel.utls.data.Constants;
 import com.muyunluan.movietunnel.utls.data.MovieListType;
 
-public class MainActivity extends AppCompatActivity implements MovieListFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements
+        MovieListFragment.OnListFragmentInteractionListener,
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     public static boolean isTablet = false;
+
+    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,11 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        // Get value from SharedPreferences to set up
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String sortStr = mSharedPreferences.getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_default_value));
+        Log.i(TAG, "onCreate: get sort value - " + sortStr);
 
         if (!isOnline()) {
             Log.e(TAG, "onCreate: Error - No Internet Access");
@@ -45,6 +56,27 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
                 navigateFragment(movieListFragment);
             }
         }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Register listener
+        mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Unregister listener
+        mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -134,5 +166,10 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
     }
 }
