@@ -46,6 +46,7 @@ public class MovieListFragment extends Fragment {
     private RecyclerView mRecyclerView;
 
     private static MovieListType mListType;
+    private static String mMovieSort;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -54,8 +55,9 @@ public class MovieListFragment extends Fragment {
     public MovieListFragment() {
     }
 
-    public static MovieListFragment newInstance(MovieListType listType) {
+    public static MovieListFragment newInstance(MovieListType listType, String movieSort) {
         mListType = listType;
+        mMovieSort = movieSort;
 
         MovieListFragment fragment = new MovieListFragment();
         return fragment;
@@ -109,22 +111,23 @@ public class MovieListFragment extends Fragment {
 
         switch (mListType) {
             case NOW_PLAYING:
-                movieCall = apiInterface.getNowPlayingMovies(apiKey);
+                movieCall = apiInterface.getNowPlayingMovies(apiKey, mMovieSort);
                 break;
             case TOP_RATED:
-                movieCall = apiInterface.getTopRatedMovies(apiKey);
+                movieCall = apiInterface.getTopRatedMovies(apiKey, mMovieSort);
                 break;
             case POPULAR:
-                movieCall = apiInterface.getPopularMovies(apiKey);
+                movieCall = apiInterface.getPopularMovies(apiKey, mMovieSort);
                 break;
             case FAVORITE:
-                movieCall = apiInterface.getTopRatedMovies(apiKey);
+                movieCall = apiInterface.getTopRatedMovies(apiKey, mMovieSort);
                 break;
             default:
-                movieCall = apiInterface.getNowPlayingMovies(apiKey);
+                movieCall = apiInterface.getNowPlayingMovies(apiKey, mMovieSort);
                 break;
         }
 
+        Log.i(TAG, "getMoviesWithRetrofit: current movie list sort type - " + mMovieSort);
         movieCall.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
@@ -141,11 +144,11 @@ public class MovieListFragment extends Fragment {
             }
         });
 
-        if (null == mMovieList || mMovieList.size() < 1) {
-            Log.e(TAG, "getMoviesWithRetrofit: empty result returned");
-        } else {
-            Log.i(TAG, "getMoviesWithRetrofit: get movie list - " + mMovieList.size());
-        }
+//        if (null == mMovieList || mMovieList.size() < 1) {
+//            Log.e(TAG, "getMoviesWithRetrofit: empty result returned");
+//        } else {
+//            Log.i(TAG, "getMoviesWithRetrofit: get movie list - " + mMovieList.size());
+//        }
     }
 
     @Override
@@ -168,4 +171,6 @@ public class MovieListFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(Movie item);
     }
+
+
 }

@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements
     public static boolean isTablet = false;
 
     private SharedPreferences mSharedPreferences;
+    private static String mSortStr = "popularity.desc";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements
 
         // Get value from SharedPreferences to set up
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String sortStr = mSharedPreferences.getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_default_value));
-        Log.i(TAG, "onCreate: get sort value - " + sortStr);
+        mSortStr = mSharedPreferences.getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_default_value));
+        Log.i(TAG, "onCreate: get sort value - " + mSortStr);
 
         if (!isOnline()) {
             Log.e(TAG, "onCreate: Error - No Internet Access");
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements
             // Only create new fragments when there is no previously saved state
             if (null == savedInstanceState) {
                 // Use Now Playing as default
-                MovieListFragment movieListFragment = MovieListFragment.newInstance(MovieListType.POPULAR);
+                MovieListFragment movieListFragment = MovieListFragment.newInstance(MovieListType.POPULAR, mSortStr);
                 navigateFragment(movieListFragment);
             }
         }
@@ -87,16 +90,16 @@ public class MainActivity extends AppCompatActivity implements
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_now_showing:
-                    fragment = MovieListFragment.newInstance(MovieListType.NOW_PLAYING);
+                    fragment = MovieListFragment.newInstance(MovieListType.NOW_PLAYING, mSortStr);
                     break;
                 case R.id.navigation_top_rated:
-                    fragment = MovieListFragment.newInstance(MovieListType.TOP_RATED);
+                    fragment = MovieListFragment.newInstance(MovieListType.TOP_RATED, mSortStr);
                     break;
                 case R.id.navigation_popular:
-                    fragment = MovieListFragment.newInstance(MovieListType.POPULAR);
+                    fragment = MovieListFragment.newInstance(MovieListType.POPULAR, mSortStr);
                     break;
                 case R.id.navigation_favorite:
-                    fragment = MovieListFragment.newInstance(MovieListType.FAVORITE);
+                    fragment = MovieListFragment.newInstance(MovieListType.FAVORITE, mSortStr);
                     break;
                 case R.id.navigation_account:
                     break;
@@ -147,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onListFragmentInteraction(Movie item) {
         Intent intent = new Intent(this, MovieDetailsActivity.class);
-        intent.putExtra(Constants.ARG_MOVIE_ID, item.getmId());
+        intent.putExtra(Constants.ARG_MOVIE, item);
         startActivity(intent);
     }
 
@@ -172,4 +175,5 @@ public class MainActivity extends AppCompatActivity implements
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
     }
+
 }

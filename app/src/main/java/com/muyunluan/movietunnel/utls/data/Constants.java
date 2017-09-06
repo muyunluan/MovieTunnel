@@ -24,5 +24,6 @@ public class Constants {
     public static final String IMAGE_SIZE = "w185/";
 
     public static final String ARG_MOVIE_ID = "movie_id";
+    public static final String ARG_MOVIE = "movie";
 
 }

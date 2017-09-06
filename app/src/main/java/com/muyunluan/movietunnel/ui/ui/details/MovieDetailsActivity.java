@@ -12,8 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.muyunluan.movietunnel.R;
+import com.muyunluan.movietunnel.model.movie.Movie;
 import com.muyunluan.movietunnel.ui.ui.trailer.MovieTrailerFragment;
-import com.muyunluan.movietunnel.utls.data.Constants;
+
+import static com.muyunluan.movietunnel.utls.data.Constants.ARG_MOVIE;
 
 /**
  * Created by Fei Deng on 8/24/17.
@@ -25,23 +27,32 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieTrai
 
     private int mMovieId;
 
+    private Movie mMovie;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
-        if (getIntent().hasExtra(Constants.ARG_MOVIE_ID)) {
-            mMovieId = getIntent().getIntExtra(Constants.ARG_MOVIE_ID, 0);
-            Log.i(TAG, "onCreate: get movie ID - " + mMovieId);
+        if (null != getIntent() && getIntent().hasExtra(ARG_MOVIE)) {
+            mMovie = getIntent().getParcelableExtra(ARG_MOVIE);
+            Log.i(TAG, "onCreate: " + mMovie.toString());
+            if (null != mMovie) {
+                mMovieId = mMovie.getmId();
+                Log.i(TAG, "onCreate: get movie ID - " + mMovieId);
+            } else {
+                Log.e(TAG, "onCreate: receive empty Movie object");
+            }
         } else {
-            Log.e(TAG, "onCreate: no selected movie ID found");
-            Snackbar.make(findViewById(R.id.fragment_container), "No selected Movie ID found", Snackbar.LENGTH_LONG).show();
+            Log.e(TAG, "onCreate: no selected movie found");
+            Snackbar.make(findViewById(R.id.fragment_container), "No selected Movie found", Snackbar.LENGTH_LONG).show();
         }
 
+        // Only create Fragment when there is no saved info
         if (null == savedInstanceState) {
             Bundle args = new Bundle();
             if (null != getIntent()) {
-                args.putInt(Constants.ARG_MOVIE_ID, getIntent().getIntExtra(Constants.ARG_MOVIE_ID, 0));
+                args.putParcelable(ARG_MOVIE, mMovie);
             }
             MovieDetailsFragment fragment = MovieDetailsFragment.newInstance();
             fragment.setArguments(args);
@@ -54,14 +65,14 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieTrai
     }
 
     @Override
-    public void onTailerListItemClick(String itemKey) {
+    public void onTrailerListItemClick(String itemKey) {
         Uri uri = Uri.parse("vnd.youtube:" + itemKey);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.putExtra("VIDEO_ID", itemKey);
         try {
             startActivity(intent);
         } catch (ActivityNotFoundException ex) {
-            Log.e(TAG, "onTailerListItemClick: Youtube app not installed");
+            Log.e(TAG, "onTrailerListItemClick: Youtube app not installed");
         }
     }
 
@@ -86,6 +97,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieTrai
     //TODO: Go to MainActivity.java
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

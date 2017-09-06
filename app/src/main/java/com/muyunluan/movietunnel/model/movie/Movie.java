@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public final class Movie implements Parcelable {
 
-    @SerializedName("")
+    @SerializedName("vote_count")
     private Integer mVoteCount;
     @SerializedName("id")
     private Integer mId;
@@ -42,6 +42,26 @@ public final class Movie implements Parcelable {
     private String mOverview;
     @SerializedName("release_date")
     private String mReleaseDate;
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "mVoteCount=" + mVoteCount +
+                ", mId=" + mId +
+                ", mVideo=" + mVideo +
+                ", mVoteAverage=" + mVoteAverage +
+                ", mTitle='" + mTitle + '\'' +
+                ", mPopularity=" + mPopularity +
+                ", mPosterPath='" + mPosterPath + '\'' +
+                ", mOriginalLanguage='" + mOriginalLanguage + '\'' +
+                ", mOriginalTitle='" + mOriginalTitle + '\'' +
+                ", mGenreIds=" + mGenreIds +
+                ", mBackdropPath='" + mBackdropPath + '\'' +
+                ", mAdult=" + mAdult +
+                ", mOverview='" + mOverview + '\'' +
+                ", mReleaseDate='" + mReleaseDate + '\'' +
+                '}';
+    }
 
     public Movie(Integer mVoteCount, Integer mId, Boolean mVideo,
                  Double mVoteAverage, String mTitle, Double mPopularity,
@@ -177,8 +197,12 @@ public final class Movie implements Parcelable {
         this.mReleaseDate = mReleaseDate;
     }
 
-    protected Movie(Parcel in) {
+    private Movie(Parcel in) {
+        mVoteCount = in.readInt();
+        mId = in.readInt();
+        mVoteAverage = in.readDouble();
         mTitle = in.readString();
+        mPopularity = in.readDouble();
         mPosterPath = in.readString();
         mOriginalLanguage = in.readString();
         mOriginalTitle = in.readString();
@@ -206,7 +230,11 @@ public final class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mVoteCount);
+        dest.writeInt(mId);
+        dest.writeDouble(mVoteAverage);
         dest.writeString(mTitle);
+        dest.writeDouble(mPopularity);
         dest.writeString(mPosterPath);
         dest.writeString(mOriginalLanguage);
         dest.writeString(mOriginalTitle);

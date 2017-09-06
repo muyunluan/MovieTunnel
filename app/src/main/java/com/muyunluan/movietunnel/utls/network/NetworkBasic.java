@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.utls;
+package com.muyunluan.movietunnel.utls.network;
 
 import android.net.Uri;
 import android.util.Log;
@@ -27,8 +27,8 @@ import static com.muyunluan.movietunnel.utls.data.Constants.SORT_BY_RATING;
  * Copyright (c) 2017 Muyunluan. All rights reserved.
  */
 
-public class NetworkApiService {
-    private final static String TAG = NetworkUtils.class.getSimpleName();
+public class NetworkBasic {
+    private final static String TAG = NetworkBasic.class.getSimpleName();
 
     public static URL buildBaseUrl(String searchQuery, boolean isRating) {
         Uri builtUri = Uri.parse(DISCOVER_BASE_URL).buildUpon()

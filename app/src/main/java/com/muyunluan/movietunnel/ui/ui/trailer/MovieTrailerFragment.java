@@ -108,6 +108,6 @@ public class MovieTrailerFragment extends Fragment {
     }
 
     public interface OnTrailerListItemClick {
-        void onTailerListItemClick(String itemKey);
+        void onTrailerListItemClick(String itemKey);
     }
 }

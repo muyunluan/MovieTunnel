@@ -23,7 +23,7 @@
         <activity android:name=".ui.ui.details.MovieDetailsActivity"
             android:label="@string/movie_details"
             android:parentActivityName=".MainActivity">
-
+            <!--Add behavior to go previous page-->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>

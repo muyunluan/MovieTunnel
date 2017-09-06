@@ -1,13 +1,19 @@
 package com.muyunluan.movietunnel.ui.ui.list;
 
+import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.muyunluan.movietunnel.R;
 import com.muyunluan.movietunnel.model.movie.Movie;
+import com.muyunluan.movietunnel.utls.network.NetworkBasic;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -18,6 +24,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
 
     private final List<Movie> mValues;
     private final MovieListFragment.OnListFragmentInteractionListener mListener;
+    private Context mContext;
 
     public MovieListRecyclerViewAdapter(List<Movie> items, MovieListFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
@@ -26,7 +33,8 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        mContext = parent.getContext();
+        View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.fragment_movie_list_item, parent, false);
         return new ViewHolder(view);
     }
@@ -34,10 +42,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(String.valueOf(mValues.get(position).getmId()));
-        holder.mContentView.setText(mValues.get(position).getmOverview());
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.mCardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
@@ -47,6 +52,16 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
                 }
             }
         });
+
+        if (!TextUtils.isEmpty(holder.mItem.getmPosterPath())) {
+            String urlStr = NetworkBasic.buildImageUrlStr(holder.mItem.getmPosterPath());
+            Picasso.with(mContext).load(urlStr).into(holder.mImageView);
+        } else {
+            // TODO: load local temperate pictures
+        }
+
+        holder.mOverviewTv.setText(holder.mItem.getmOverview());
+
     }
 
     @Override
@@ -55,21 +70,22 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final CardView mCardview;
+        public final ImageView mImageView;
+        public final TextView mOverviewTv;
+
         public Movie mItem;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mCardview = (CardView) view.findViewById(R.id.card_movie);
+            mImageView = (ImageView) view.findViewById(R.id.img_movie);
+            mOverviewTv = (TextView) view.findViewById(R.id.tv_overview);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mOverviewTv.getText() + "'";
         }
     }
 }

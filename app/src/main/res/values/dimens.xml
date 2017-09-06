@@ -9,4 +9,6 @@
     <dimen name="release_date_text_size">20sp</dimen>
     <dimen name="rating_text_size">20sp</dimen>
     <dimen name="horizontal_margin">16dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="pic_padding">1dp</dimen>
 </resources>

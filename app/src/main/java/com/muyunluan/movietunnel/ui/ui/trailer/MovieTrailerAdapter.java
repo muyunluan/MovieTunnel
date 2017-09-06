@@ -67,7 +67,7 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
 
         @Override
         public void onClick(View v) {
-            mOnTrailerListItemClick.onTailerListItemClick(mTrailerKey);
+            mOnTrailerListItemClick.onTrailerListItemClick(mTrailerKey);
         }
     }
 }
