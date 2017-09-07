@@ -26,7 +26,10 @@ Release note:
 09/05/2017 - v1.6
 - Add SQLite support for Favorite Movie
 - Use CardView for Movie List item
-- 
+ 
+09/07/2017 - v1.7
+- Add MovieFavoriteContentProvider
+
 Note( Finished Test Points )
 - Define a RecyclerView item list (MovieListFragment)  
 - Construct a layout using XML or Java code
@@ -34,7 +37,10 @@ Note( Finished Test Points )
 - Integrate code from an external support library (Retrofit, Picasso libs)
 - Define a database schema; include tables, fields, and indices
 - Create an application-private database file (SharedPreference)
+- Create persistent preference data from user input
+- Toggle application logic based on preference values (onSharedPreferenceChanged)
 - Construct database queries returning single results (SQLite)
 - Construct database queries returning multiple results
 - Insert new items into a database
 - Update or delete existing items in a database
+- Expose a database to other applications via Content Provider
