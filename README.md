@@ -49,4 +49,4 @@ Note( Finished Test Points )
 - Update or delete existing items in a database
 - Expose a database to other applications via Content Provider
 - Create an app widget that displays on the device home screen
-- Implement a task to update the app widget periodically (Read first item in SharedPreference)
+
