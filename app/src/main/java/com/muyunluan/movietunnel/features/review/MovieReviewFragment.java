@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.ui.review;
+package com.muyunluan.movietunnel.features.review;
 
 import android.content.Context;
 import android.os.Bundle;

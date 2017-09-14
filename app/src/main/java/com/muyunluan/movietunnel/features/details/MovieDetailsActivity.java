@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.ui.details;
+package com.muyunluan.movietunnel.features.details;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.view.MenuItem;
 
 import com.muyunluan.movietunnel.R;
 import com.muyunluan.movietunnel.model.movie.Movie;
-import com.muyunluan.movietunnel.ui.ui.trailer.MovieTrailerFragment;
+import com.muyunluan.movietunnel.features.trailer.MovieTrailerFragment;
 
 import static com.muyunluan.movietunnel.utls.data.Constants.ARG_MOVIE;
 

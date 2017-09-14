@@ -63,6 +63,8 @@ public final class Movie implements Parcelable {
                 '}';
     }
 
+    public Movie() {}
+
     public Movie(Integer mVoteCount, Integer mId, Boolean mVideo,
                  Double mVoteAverage, String mTitle, Double mPopularity,
                  String mPosterPath, String mOriginalLanguage,

@@ -30,6 +30,9 @@ Release note:
 09/07/2017 - v1.7
 - Add MovieFavoriteContentProvider
 
+09/13/2017 - v1.8
+- Add Widget for First Favorite Movie through SharedPreference
+
 Note( Finished Test Points )
 - Define a RecyclerView item list (MovieListFragment)  
 - Construct a layout using XML or Java code
@@ -39,8 +42,11 @@ Note( Finished Test Points )
 - Create an application-private database file (SharedPreference)
 - Create persistent preference data from user input
 - Toggle application logic based on preference values (onSharedPreferenceChanged)
+- Define a database schema; include tables, fields, and indices
 - Construct database queries returning single results (SQLite)
 - Construct database queries returning multiple results
 - Insert new items into a database
 - Update or delete existing items in a database
 - Expose a database to other applications via Content Provider
+- Create an app widget that displays on the device home screen
+- Implement a task to update the app widget periodically (Read first item in SharedPreference)

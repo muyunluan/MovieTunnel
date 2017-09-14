@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.utls.contentprovider;
+package com.muyunluan.movietunnel.utls.provider;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;

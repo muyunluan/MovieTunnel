@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.ui.trailer;
+package com.muyunluan.movietunnel.features.trailer;
 
 import android.content.Context;
 import android.os.Bundle;

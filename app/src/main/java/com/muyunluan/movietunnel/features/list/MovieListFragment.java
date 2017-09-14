@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.ui.list;
+package com.muyunluan.movietunnel.features.list;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -127,13 +127,13 @@ public class MovieListFragment extends Fragment {
                 break;
         }
 
-        Log.i(TAG, "getMoviesWithRetrofit: current movie list sort type - " + mMovieSort);
+        //Log.i(TAG, "getMoviesWithRetrofit: current movie list sort type - " + mMovieSort);
         movieCall.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 //Log.i(TAG, "onResponse: " + response.body().toString());
                 mMovieList = response.body().getmResults();
-                Log.i(TAG, "onResponse: get movie list - " + mMovieList.size());
+                //Log.i(TAG, "onResponse: get movie list - " + mMovieList.size());
                 //Log.i(TAG, "onResponse: test first Movie object - " + mMovieList.get(0).toString());
                 mRecyclerView.setAdapter(new MovieListRecyclerViewAdapter(mMovieList, mListener));
             }

@@ -16,9 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.muyunluan.movietunnel.model.movie.Movie;
-import com.muyunluan.movietunnel.ui.ui.details.MovieDetailsActivity;
-import com.muyunluan.movietunnel.ui.ui.list.MovieListFragment;
-import com.muyunluan.movietunnel.ui.ui.settings.SettingsActivity;
+import com.muyunluan.movietunnel.features.details.MovieDetailsActivity;
+import com.muyunluan.movietunnel.features.list.MovieListFragment;
+import com.muyunluan.movietunnel.features.settings.SettingsActivity;
 import com.muyunluan.movietunnel.utls.data.Constants;
 import com.muyunluan.movietunnel.utls.data.MovieListType;
 
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements
         // Get value from SharedPreferences to set up
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mSortStr = mSharedPreferences.getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_default_value));
-        Log.i(TAG, "onCreate: get sort value - " + mSortStr);
+        //Log.i(TAG, "onCreate: get sort value - " + mSortStr);
 
         if (!isOnline()) {
             Log.e(TAG, "onCreate: Error - No Internet Access");

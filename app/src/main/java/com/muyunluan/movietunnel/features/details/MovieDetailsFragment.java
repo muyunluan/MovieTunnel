@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.ui.details;
+package com.muyunluan.movietunnel.features.details;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,13 +16,15 @@ import android.widget.TextView;
 
 import com.muyunluan.movietunnel.R;
 import com.muyunluan.movietunnel.model.movie.Movie;
-import com.muyunluan.movietunnel.ui.ui.review.MovieReviewFragment;
-import com.muyunluan.movietunnel.ui.ui.trailer.MovieTrailerFragment;
+import com.muyunluan.movietunnel.features.review.MovieReviewFragment;
+import com.muyunluan.movietunnel.features.trailer.MovieTrailerFragment;
 import com.muyunluan.movietunnel.utls.network.NetworkBasic;
+import com.muyunluan.movietunnel.utls.preference.SharedPreferenceUtl;
 import com.muyunluan.movietunnel.utls.sqlite.MovieDBHelper;
 import com.squareup.picasso.Picasso;
 
 import static com.muyunluan.movietunnel.utls.data.Constants.ARG_MOVIE;
+import static com.muyunluan.movietunnel.utls.data.Constants.ARG_MOVIE_ID;
 import static com.muyunluan.movietunnel.utls.sqlite.MovieFavoriteContract.MovieEntry._ID;
 import static com.muyunluan.movietunnel.utls.sqlite.MovieFavoriteContract.MovieEntry.COLUMN_ID;
 import static com.muyunluan.movietunnel.utls.sqlite.MovieFavoriteContract.MovieEntry.COLUMN_OVERVIEW;
@@ -49,6 +51,8 @@ public class MovieDetailsFragment extends Fragment {
     private MovieDBHelper mDBHelper;
     private SQLiteDatabase mDB;
 
+    private SharedPreferenceUtl mSharedPreferenceUtl;
+
     private ImageButton mFavoriteBt;
 
     public MovieDetailsFragment() {
@@ -66,9 +70,14 @@ public class MovieDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (null != getArguments() && getArguments().containsKey(ARG_MOVIE)) {
-            mMovie = getArguments().getParcelable(ARG_MOVIE);
-            mMovieId = mMovie.getmId();
+        if (null != getArguments()) {
+            if (getArguments().containsKey(ARG_MOVIE)) {
+                mMovie = getArguments().getParcelable(ARG_MOVIE);
+                mMovieId = mMovie.getmId();
+            } else if (getArguments().containsKey(ARG_MOVIE_ID)) {
+                // TODO: Use movie id to build Movie object
+                mMovieId = getArguments().getInt(ARG_MOVIE_ID);
+            }
         } else {
             // TODO: is this a legal movie ID?
             mMovieId = 0;
@@ -98,16 +107,27 @@ public class MovieDetailsFragment extends Fragment {
         TextView releaseTv = (TextView) view.findViewById(R.id.tv_release_date);
         releaseTv.setText(mMovie.getmReleaseDate());
 
+        mSharedPreferenceUtl = SharedPreferenceUtl.getInstance(getContext());
+
         mFavoriteBt = (ImageButton) view.findViewById(R.id.imgbt_favorite);
         toggleFavorite();
         mFavoriteBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Leverage SQLite
                 if (!isFavorite()) {
                     addToFavorites();
                 } else {
                     removeFromFavorites();
                 }
+
+                // Leverage SharedPreference
+                if (!mSharedPreferenceUtl.getMovieIsFavorite(mMovieId)) {
+                    mSharedPreferenceUtl.setFavoriteMovieWithImage(mMovieId, mMovie.getmPosterPath());
+                } else {
+                    mSharedPreferenceUtl.removeFavoriteMovie(mMovieId);
+                }
+
                 toggleFavorite();
             }
         });

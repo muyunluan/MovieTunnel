@@ -1,4 +1,4 @@
-package com.muyunluan.movietunnel.ui.ui.settings;
+package com.muyunluan.movietunnel.features.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -66,7 +66,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
             Preference preference = findPreference(key);
             String value = sharedPreferences.getString(preference.getKey(), "");
             Log.i(TAG, "onSharedPreferenceChanged: changed value - " + value);
-            // FOr ListPreference, figure out the label of selected value
+            // For ListPreference, figure out the label of selected value
             ListPreference listPreference = (ListPreference) preference;
             int prefIndex = listPreference.findIndexOfValue(value);
             if (prefIndex >= 0) {

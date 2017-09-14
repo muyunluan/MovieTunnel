@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.ui.details.MovieDetailsActivity"
+        <activity android:name=".features.details.MovieDetailsActivity"
             android:label="@string/movie_details"
             android:parentActivityName=".MainActivity">
             <!--Add behavior to go previous page-->
@@ -29,7 +29,7 @@
                 android:value=".MainActivity"/>
         </activity>
 
-        <activity android:name=".ui.ui.settings.SettingsActivity"
+        <activity android:name=".features.settings.SettingsActivity"
             android:label="@string/settings"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -37,9 +37,21 @@
                 android:value=".MainActivity"/>
         </activity>
 
+        <receiver android:name=".features.widget.MovieWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/movie_widget_info"/>
+        </receiver>
+
+        <service android:name=".features.widget.MovieWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
         <provider
             android:authorities="com.muyunluan.movietunnel"
-            android:name=".utls.contentprovider.MovieFavoriteContentProvider"
+            android:name=".utls.provider.MovieFavoriteContentProvider"
             android:exported="true"/>
     </application>
 
